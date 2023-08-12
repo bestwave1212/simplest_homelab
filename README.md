@@ -9,7 +9,8 @@ Info for reinstalling proxmox on lebon :
 - add non subscription repo, update, upgrade, reboot
 
 Follow passthrough guide : https://www.reddit.com/r/homelab/comments/b5xpua/the_ultimate_beginners_guide_to_gpu_passthrough/
-- Enable IOMMU : nano /etc/default/grub -> GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on" -> update-grub
+- Enable IOMMU : nano /etc/default/grub -> GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt" -> update-grub
+- check iommu on & check iommu grouping
 - load VFIO modules : nano /etc/modules
 vfio
 vfio_iommu_type1
