@@ -1,4 +1,6 @@
 # lebon
+LeBon is the baremetal hypervisor which hosts all the other services. It must be as simple as possible to be able to reinstall it easily because backup the host is not so easy.
+
 Info for reinstalling proxmox on lebon : 
 - disconnect ethernet on lan1 and connect lan0 to lepaysan (backup)
 - set static ip 192.168.10.2, this will create bridge vmbr0 which correspond to LAN 
@@ -23,3 +25,5 @@ vfio_virqfd
 - reboot
 - Check that driver in use is vfio-pci and not ahci, it works currently only because I have 1 Sata so I can disable all Sata controllers, to choose which sata to passthrough follow this guide : https://gist.github.com/kiler129/4f765e8fdc41e1709f1f34f7f8f41706
 
+#backup
+When backup is restored, add PBS server to LeBon storage and create a scheduled backup
