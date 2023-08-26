@@ -6,9 +6,9 @@ Info for reinstalling proxmox on lebon :
 - set static ip 192.168.10.2, this will create bridge vmbr0 which correspond to LAN 
 - with a third pc, set static ip like 192.168.10.5 and go to bakcup gui and copy its fingerprint (debug: might want to disable old VPN like tailscale, couldn't ping with it)
 - connect to lebon gui and add a storage in "Datacenter", button "Add", then "proxmox backup server"
-#----------------------------
-#  install i217V intel NIC
-#----------------------------
+
+
+#  Install i217V intel NIC
 This NIC is not working out of the box, must download and compile drivers from intel
 #install dependencies
 apt-get install linux-headers-$(uname -r)
