@@ -10,6 +10,7 @@ Info for reinstalling proxmox on lebon :
 
 #  Install i217V intel NIC
 This NIC is not working out of the box, must download and compile drivers from intel
+```bash
 #install dependencies
 apt-get install linux-headers-$(uname -r)
 apt-get install gcc make
@@ -20,6 +21,7 @@ tar zxf e100
 cd e100
 make install
 modprobe e1000e insmod e1000e
+```
 
 Follow passthrough guide : https://www.reddit.com/r/homelab/comments/b5xpua/the_ultimate_beginners_guide_to_gpu_passthrough/
 - Enable IOMMU : nano /etc/default/grub -> GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt" -> update-grub
