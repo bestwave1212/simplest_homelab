@@ -23,6 +23,7 @@ make install
 modprobe e1000e insmod e1000e
 ```
 
+# Enable passthrough
 Follow passthrough guide : https://www.reddit.com/r/homelab/comments/b5xpua/the_ultimate_beginners_guide_to_gpu_passthrough/
 - Enable IOMMU : nano /etc/default/grub -> GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt" -> update-grub
 - check iommu on & check iommu grouping
