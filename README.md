@@ -18,7 +18,7 @@ apt-get install gcc make
 #get drivers
 wget https://downloadmirror.intel.com/15817/eng/e1000e-3.8.4.tar.gz
 tar zxf e100
-cd e100
+cd e1000e-3.8.4/src/
 make install
 modprobe e1000e insmod e1000e
 ```
