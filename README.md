@@ -30,15 +30,17 @@ Follow passthrough guide : https://www.reddit.com/r/homelab/comments/b5xpua/the_
 nano /etc/default/grub
 # GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
 update-grub
-
+```
+```bash
 #check iommu on & check iommu grouping
 #load VFIO modules
 nano /etc/modules
-#Paste this :
-# vfio
-# vfio_iommu_type1
-# vfio_pci
-# vfio_virqfd
+```
+Paste this :
+vfio
+vfio_iommu_type1
+vfio_pci
+vfio_virqfd
 
 #blacklist stat drivers
 echo "blacklist ahci" >> /etc/modprobe.d/blacklist.conf
