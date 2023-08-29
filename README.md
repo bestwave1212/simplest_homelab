@@ -31,6 +31,7 @@ nano /etc/default/grub
 # GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
 update-grub
 ```
+
 ```bash
 #check iommu on & check iommu grouping
 #load VFIO modules
@@ -46,6 +47,7 @@ vfio_pci
 
 vfio_virqfd
 
+```bash
 #blacklist stat drivers
 echo "blacklist ahci" >> /etc/modprobe.d/blacklist.conf
 #add SATA controller to vfio
