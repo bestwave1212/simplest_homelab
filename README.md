@@ -34,6 +34,7 @@ update-grub
 #check iommu on & check iommu grouping
 #load VFIO modules
 nano /etc/modules
+#Paste this :
 #vfio
 #vfio_iommu_type1
 #vfio_pci
