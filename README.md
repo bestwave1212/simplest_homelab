@@ -8,7 +8,7 @@ Info for reinstalling proxmox on lebon :
 - connect to lebon gui and add a storage in "Datacenter", button "Add", then "proxmox backup server"
 
 
-#  Install i217V intel NIC
+#  Install i217V intel NIC (not working)
 This NIC is not working out of the box, must download and compile drivers from intel
 ```bash
 #install dependencies
