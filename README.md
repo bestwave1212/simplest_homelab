@@ -69,4 +69,17 @@ When backup is restored, add PBS server to LeBon storage and create a scheduled 
 One bug I found was when mounting a NFS share of a dataset with a child dataset. The Child dataset permissions was set to root:root (root of TrueNAS and not of proxmox so very limited access unless you give 777 permissions). A workaround I found on TrueNAS forum was to create a share for the child, although it was already shared by the "parent" dataset. 
 To do that in TrueNAS, go to SHARES, then UNIX (NFS) Shares, then ADD. Select the child dataset to share and share to the whole network (the parent share is only shared to one host/ip) to avoid conflict. Also in Advanced options, gite the same Maproot user & Maproot Group as the parent dataset.
 
+# TrueNAS - backup
+This is a separate PC to backup everything outside of lebon, used a lot when reinstalling proxmox host. 
+Steps to reproduce to use backup
+Install TrueNAS 
+In router, use dhcp static lease to asign ip addresse 192.168.12.21 to mac address : 2c:60:0c:0d:ac:44
+In storage, create a ZVOL named backup
+In Datasets, create a dataset proxmox
+In Credentials, Local Users, create a user proxmox with its own group
+In Shares, create a UNIX share for /mnt/backup/proxmox, for host/ip 192.168.12.2
+In Advanced settings, set Maproot User & Maproot group to proxmox
+
+Go to proxmox and mount this NFS share
+
 
