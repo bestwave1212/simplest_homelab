@@ -82,4 +82,12 @@ In Advanced settings, set Maproot User & Maproot group to proxmox
 
 Go to proxmox and mount this NFS share
 
-
+# NordVPN
+connecting using CLI
+```bash
+#launch login page and type password
+nordvpn login
+#then paste here the link and change https by nordvpn, like so :
+nordvpn login --callback "nordvpn://nordaccount.com/product/nordvpn/login/success?return=1&redirect_upon_open=1&exchange_token=Njk2Yzc2YmRlNmEwMTIzZjJmYmVlODZhMDM1YjdhZTQwZGJmOTkwODk0Yjk5ZjVjNDU4MGI2ZThjNzJjMjYzZg%3D%3D"
+nordvpn set autoconnect on Sweden
+```
