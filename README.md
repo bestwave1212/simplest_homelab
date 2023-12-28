@@ -91,3 +91,19 @@ nordvpn login
 nordvpn login --callback "nordvpn://nordaccount.com/product/nordvpn/login/success?return=1&redirect_upon_open=1&exchange_token=Njk2Yzc2YmRlNmEwMTIzZjJmYmVlODZhMDM1YjdhZTQwZGJmOTkwODk0Yjk5ZjVjNDU4MGI2ZThjNzJjMjYzZg%3D%3D"
 nordvpn set autoconnect on Sweden
 ```
+
+# Error solving
+I just borked my fav LXC, here is how i fixed it : 
+```bash
+root@prox:~# pct mount 102
+mounted CT 102 in '/var/lib/lxc/102/rootfs'
+
+
+
+root@prox:~# lsattr /var/lib/lxc/102/rootfs/etc/resolv.conf
+----i---------e---- /var/lib/lxc/102/rootfs/etc/resolv.conf
+root@prox:~# chattr -i /var/lib/lxc/102/rootfs/etc/resolv.conf
+root@prox:~# lsattr /var/lib/lxc/102/rootfs/etc/resolv.conf
+--------------e---- /var/lib/lxc/102/rootfs/etc/resolv.conf
+root@prox:~# pct unmount 102
+```
