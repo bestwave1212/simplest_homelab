@@ -107,7 +107,7 @@ sudo docker run \
 --restart always \
 --publish 8080:8080 \
 --env APACHE_PORT=11000 \
---env APACHE_IP_BINDING=192.168.25.2 \
+--env APACHE_IP_BINDING=192.168.25.10 \
 --env SKIP_DOMAIN_VALIDATION=true \
 --env NEXTCLOUD_DATADIR="/mnt/data" \
 --volume nextcloud_aio_mastercontainer:/mnt/docker-aio-config \
