@@ -92,6 +92,29 @@ nordvpn login --callback "nordvpn://nordaccount.com/product/nordvpn/login/succes
 nordvpn set autoconnect on Sweden
 ```
 
+# Nextcloud AIO
+Run nextcloud AIO docker inside a LXC : 
+- create the LXC container with a fixed ip address + a data folder mounted to store files
+- Install docker
+- In cloudflare, create a tunnel for http://ip-address:11000 & https://ip-address:8080
+- Disable special feature for nextcloud web page (rocket features)
+- run this command :
+```bash
+sudo docker run \
+--init \
+--sig-proxy=false \
+--name nextcloud-aio-mastercontainer \
+--restart always \
+--publish 8080:8080 \
+--env APACHE_PORT=11000 \
+--env APACHE_IP_BINDING=0.0.0.0 \
+--env SKIP_DOMAIN_VALIDATION=true
+--env NEXTCLOUD_DATADIR="/mnt/data"
+--volume nextcloud_aio_mastercontainer:/mnt/docker-aio-config \
+--volume /var/run/docker.sock:/var/run/docker.sock:ro \
+nextcloud/all-in-one:latest
+```
+
 # Error solving
 I just borked my fav LXC, here is how i fixed it : 
 ```bash
