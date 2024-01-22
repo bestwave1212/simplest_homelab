@@ -96,7 +96,7 @@ nordvpn set autoconnect on Sweden
 Run nextcloud AIO docker inside a LXC : 
 - create the LXC container with a fixed ip address + a data folder mounted to store files
 - Install docker
-- In cloudflare, create a tunnel for http://ip-address:11000 & https://ip-address:8080
+- In cloudflare, create a tunnel for http://127.0.0.1:11000
 - Disable special feature for nextcloud web page (rocket features)
 - run this command :
 ```bash
