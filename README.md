@@ -150,8 +150,7 @@ echo "#!/bin/sh
 export PBS_REPOSITORY=192.168.12.30:8007:backup
 proxmox-backup-client backup laptaupe_data.pxar:/mnt/data
 proxmox-backup-client backup laptaupe:/" >> /root/backup/backup.sh
-echo "#exclude wanted folders here
-" >> /root/backup/.pxarexclude
+echo "#exclude wanted folders here" >> /root/backup/.pxarexclude
 
 #install my apps
 
