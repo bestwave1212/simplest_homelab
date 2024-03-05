@@ -145,7 +145,7 @@ echo "deb http://download.proxmox.com/debian/pbs-client bookworm main" >> /etc/a
 apt-get update
 apt-get install proxmox-backup-client
 mkdir /root/backup
-echo "#!/bin/sh
+echo "#!/bin/bash
 #backup laptaupe
 export PBS_REPOSITORY=192.168.12.30:8007:backup
 proxmox-backup-client backup laptaupe_data.pxar:/mnt/data
