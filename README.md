@@ -136,14 +136,17 @@ root@prox:~# pct unmount 102
 This is my personal laptop, here is the list of things to do when reinstall : 
 ```bash
 #Fix gamepad issue
-
-#Backup script, install proxmox backup client
+```
+#Backup both disks using proxmox-backup-client and a systemd service
+```bash
+#install proxmox-backup-client
 wget https://enterprise.proxmox.com/debian/proxmox-release-bookworm.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
 #sha512sum /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg 7da6fe34168adc6e479327ba517796d4702fa2f8b4f0a9833f5ea6e6b48f6507a6da403a274fe201595edc86a84463d50383d07f64bdde2e3658108db7d6dc87  /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
 #md5sum /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg 41558dc019ef90bd0f6067644a51cf5b /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
 echo "deb http://download.proxmox.com/debian/pbs-client bookworm main" >> /etc/apt/sources.list.d/proxmox.list
 apt-get update
 apt-get install proxmox-backup-client
+#create bash script
 mkdir /root/backup
 echo "
 #backup laptaupe
@@ -156,26 +159,29 @@ echo "#exclude wanted folders here" >> /root/backup/.pxarexclude
 chmod 700 backup.sh
 #change password
 nano /root/backup/backup.sh
+#create service using systemd to execute it everyday
 echo "
 [Unit]
 Description=Backup laptaupe
 After=default.target
- 
+
 [Service]
 Type=oneshot
 WorkingDirectory=/root/backup/
-ExecStart=/root/backup/backup.sh" >> /etc/systemd/multi-user.target.wants/
-
+ExecStart=/root/backup/backup.sh" >> /etc/systemd/system/backup_laptaupe.service
+#execute this service everyday
 echo "[Unit]
-Description=Launches disaster backup sync with le paysan, 15min after boot and every week on mondays at 4am 
+Description=Launches laptaupe backup every day at 4am 
+
 [Timer]
-OnBootSec=15minutes
-OnUnitActiveSec=Mon *-*-* 04:00:00
+OnCalendar=Mon..Sun *-*-* 04:00:00
 Persistent=true
+Unit=backup_laptaupe.service
+
 [Install]
-WantedBy=timers.target" >> /etc/systemd/multi-user.target.wants/
+WantedBy=timers.target" >> /etc/systemd/system/backup_laptaupe.timer
+```
 
 #install my apps
 
 #configure tailscle
-```
