@@ -148,9 +148,24 @@ mkdir /root/backup
 echo "
 #backup laptaupe
 export PBS_REPOSITORY=192.168.12.30:8007:backup
+export PBS_PASSWORD=to be changed
 proxmox-backup-client backup laptaupe_data.pxar:/mnt/data
 proxmox-backup-client backup laptaupe:/" >> /root/backup/backup.sh
 echo "#exclude wanted folders here" >> /root/backup/.pxarexclude
+#file executable but only readable by root to ensure no password leak
+chmod 700 backup.sh
+#change password
+nano /root/backup/backup.sh
+echo "
+[Unit]
+Description=Backup laptaupe
+After=default.target
+ 
+[Service]
+Type=oneshot
+WorkingDirectory=/root/backup/
+ExecStart=/home/bestwave/backup_lepaysan/backup_lepaysan.sh
+
 
 #install my apps
 
