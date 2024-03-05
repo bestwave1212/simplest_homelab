@@ -153,7 +153,7 @@ echo "
 export PBS_REPOSITORY=192.168.12.30:8007:backup
 export PBS_PASSWORD=to be changed
 proxmox-backup-client backup laptaupe_data.pxar:/mnt/data
-proxmox-backup-client backup laptaupe:/" >> /root/backup/backup.sh
+proxmox-backup-client backup laptaupe.pxar:/" >> /root/backup/backup.sh
 echo "#exclude wanted folders here" >> /root/backup/.pxarexclude
 #file executable but only readable by root to ensure no password leak
 chmod 700 backup.sh
@@ -180,6 +180,11 @@ Unit=backup_laptaupe.service
 
 [Install]
 WantedBy=timers.target" >> /etc/systemd/system/backup_laptaupe.timer
+
+#Start this timer at boot
+systemctl enable backup_laptaupe.timer
+systemctl status backup_laptaupe.timer
+systemctl status backup_laptaupe.service
 ```
 
 #install my apps
