@@ -164,8 +164,16 @@ After=default.target
 [Service]
 Type=oneshot
 WorkingDirectory=/root/backup/
-ExecStart=/home/bestwave/backup_lepaysan/backup_lepaysan.sh
+ExecStart=/root/backup/backup.sh" >> /etc/systemd/multi-user.target.wants/
 
+echo "[Unit]
+Description=Launches disaster backup sync with le paysan, 15min after boot and every week on mondays at 4am 
+[Timer]
+OnBootSec=15minutes
+OnUnitActiveSec=Mon *-*-* 04:00:00
+Persistent=true
+[Install]
+WantedBy=timers.target" >> /etc/systemd/multi-user.target.wants/
 
 #install my apps
 
