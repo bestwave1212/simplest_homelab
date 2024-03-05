@@ -136,7 +136,7 @@ root@prox:~# pct unmount 102
 This is my personal laptop, here is the list of things to do when reinstall : 
 ```bash
 #Fix gamepad issue
-sudo fixgamepadbecauseidontremember
+
 #Backup script, install proxmox backup client
 wget https://enterprise.proxmox.com/debian/proxmox-release-bookworm.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
 sha512sum /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
@@ -148,6 +148,6 @@ sudo apt update
 sudo apt install proxmox-backup-client
 
 #install my apps
-sudo fixgamepadbecauseidontremember
+
 #configure tailscle
 ```
