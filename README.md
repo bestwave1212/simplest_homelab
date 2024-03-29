@@ -115,6 +115,26 @@ sudo docker run \
 nextcloud/all-in-one:latest
 ```
 
+# Spindown disks
+Understand the disks
+```bash
+smartctl -i -n standby /dev/sda
+smartctl -i -n standby /dev/sdb
+```
+
+Spindown disk after 20min at idle (I want more than 20min)
+```bash
+hdparm -S 240 /dev/sda
+hdparm -S 240 /dev/sdb
+```
+Check disk powerdown
+```bash
+smartctl -i -n standby /dev/sda
+smartctl -i -n standby /dev/sdb
+```
+
+Need to add this at startup
+
 # Error solving
 I just borked my fav LXC, here is how i fixed it : 
 ```bash
