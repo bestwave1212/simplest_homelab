@@ -210,3 +210,15 @@ systemctl status backup_laptaupe.service
 #install my apps
 
 #configure tailscle
+
+# Container installation 
+```bash
+apt-get update
+apt-get dist-upgrade -y
+apt-get install sudo
+adduser bestwave
+#Then type your password
+usermod -aG sudo bestwave
+reboot
+
+```
