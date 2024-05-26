@@ -1,5 +1,6 @@
 # lebon
-LeBon is the baremetal hypervisor which hosts all the other services. It must be as simple as possible to be able to reinstall it easily because backup the host is not so easy.
+LeBon is the baremetal hypervisor which hosts all the other services. This host setup must be as simple as possible because backing up the host is not so simple. Instead, create containers to create services or anything.
+
 
 Info for reinstalling proxmox on lebon : 
 - disconnect ethernet on lan1 and connect lan0 to lepaysan (backup)
