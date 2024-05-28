@@ -214,6 +214,7 @@ systemctl status backup_laptaupe.service
 
 # Container installation 
 ```bash
+timedatectl set-timezone /Europe/Paris
 apt-get update
 apt-get dist-upgrade -y
 apt-get install sudo
