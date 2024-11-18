@@ -224,3 +224,24 @@ usermod -aG sudo bestwave
 reboot
 
 ```
+
+
+# NoName Project
+The goal is to go back to the basics and make a host as simple as possible
+
+## Network
+Use mainly the ISP router for most things but I want access remotely with a VPN, access some site with domain name, internal DNS for my apps, privacy.
+### Access with VPN
+Use tailscale or wireguard
+### Access with domain name
+### Internal DNS
+Use PiHole or AdGuardHome to have DNS sinkhole, DNS rewrite, and choose my own DNS (which?) for better privacy
+
+## Storage
+The goal is to have a storage on HDD (big capacity) + SSD (low power). It must be fully reliable and low power. 
+### Reliable
+The FileSystem must have protection against bitrod and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. BTRFS seems to be the right candidate for bitrod & easy restore but dive into how to backup easily ?
+If power consumption allow it, it would be cool to have 2 nodes to have full redundancy and high avaibility but this is not the priority.
+### Low power 
+Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
+
