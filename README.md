@@ -245,3 +245,12 @@ If power consumption allow it, it would be cool to have 2 nodes to have full red
 ### Low power 
 Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
 
+## APPs
+### Backup
+That will be used to back up my other machines
+### ServArr
+### HomeAssistant
+### Nextcloud
+### Others 
+Mealie
+
