@@ -238,9 +238,9 @@ Use tailscale or wireguard
 Use PiHole or AdGuardHome to have DNS sinkhole, DNS rewrite, and choose my own DNS (which?) for better privacy
 
 ## Storage
-The goal is to have a storage on HDD (big capacity) + SSD (low power). It must be fully reliable and low power. 
+The goal is to have a storage on 1 big HDD (big capacity) + 1 SSD (low power). It must be fully reliable and low power. 
 ### Reliable
-The FileSystem must have protection against bitrod and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. BTRFS seems to be the right candidate for bitrod & easy restore but dive into how to backup easily ?
+The FileSystem must have protection against bitrod and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. The backup drive is exactly the same as the main one. BTRFS seems to be the right candidate for bitrod detection & easy restore. 
 If power consumption allow it, it would be cool to have 2 nodes to have full redundancy and high avaibility but this is not the priority.
 ### Low power 
 Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
@@ -253,4 +253,5 @@ That will be used to back up my other machines
 ### Nextcloud
 ### Others 
 Mealie
+habitica
 
