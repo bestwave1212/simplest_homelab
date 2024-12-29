@@ -245,6 +245,18 @@ If power consumption allow it, it would be cool to have 2 nodes to have full red
 ### Low power 
 Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
 
+### Init storage
+```bash
+# Create a btrfs volume for mass storage
+which btrfs
+sudo mkfs.btrfs /dev/sda
+sudo mkdir /mnt/data
+sudo mount /dev/sda /mnt/data
+sudo chown bestwave:bestwave /mnt/data
+sudo btrfs subvolume list
+```
+
+
 ## APPs
 ### Backup
 That will be used to back up my other machines
