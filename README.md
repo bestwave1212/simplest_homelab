@@ -258,6 +258,9 @@ sudo btrfs subvolume list
 
 ### Init backup
 ```bash
+# Create subvolume to store snapshots
+btrfs subvolume create /mnt/data/backup
+btrfs subvolume create /mnt/data/backup/mordor
 # Use btrbk for snapshot and backup of snapshots
 sudo dnf install btrbk
 wget LinkToMyConfig
@@ -283,7 +286,7 @@ wget LinkToMyConfig
 transaction_log            /var/log/btrbk.log
 
 # Specify SSH private key for remote connections
-ssh_identity               /home/bestwave/.ssh/
+ssh_identity               /home/bestwave/.ssh/id_rsa
 ssh_user                   bestwave
 
 # Use sudo if btrbk or lsbtr is run by regular user
@@ -304,7 +307,7 @@ stream_buffer              256m
 # NOTE: btrbk does not automatically create this directory, and the
 # snapshot creation will fail if it is not present.
 #
-snapshot_dir               _btrbk_snap
+snapshot_dir               /mnt/data/backup/internal/
 
 # Always create snapshots. Set this to "ondemand" to only create
 # snapshots if the target volume is reachable. Set this to "no" if
