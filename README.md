@@ -266,6 +266,7 @@ sudo dnf install btrbk
 wget LinkToMyConfig
 ```
 
+```bash
 # TA 29122024 Modified to fit my needs from : 
 # Example btrbk configuration file
 #
@@ -470,6 +471,7 @@ volume ssh://my-remote-host.com/mnt/btr_pool
   snapshot_preserve_min  all
   subvolume home
     target /mnt/btr_backup/my-remote-host.com
+```
 
 ## APPs
 ### Backup
