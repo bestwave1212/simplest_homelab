@@ -254,17 +254,20 @@ Those info must be present :
 - lepaysan backup result
 - SMART values
 
-
-### Init storage
 ```bash
-#install btrfs tools
-apt install btrfs-progs
-# Create a btrfs volume for mass storage
-sudo mkfs.btrfs /dev/sda
-sudo mkdir /mnt/data
-sudo mount /dev/sda /mnt/data
-sudo chown bestwave:bestwave /mnt/data
-sudo btrfs subvolume list
+#Launch all tests
+btrfs scrub start /mnt/data
+smartctl -t short /dev/sda
+smartctl -t short /dev/nvme0
+# More than 1 minutes for smart short test
+sleep 2m
+#SMART status (disk health check)
+smartctl -H /dev/sda
+smartctl -H /dev/nvme0
+# user / free space
+dn -f
+#
+```
 
 
 ### Init backup
@@ -291,6 +294,7 @@ pct set 1031 -mp0 /mnt/data/servarr,mp=/mnt/mediaShare
 sudo dnf install btrbk
 wget LinkToMyConfig
 ```
+
 
 ```bash
 # TA 29122024 Modified to fit my needs from : 
