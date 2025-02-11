@@ -272,6 +272,9 @@ umount /dev/sda
 blkid /dev/sda
 #Automount at boot
 nano /etc/fstab
+#Mount a folder to an lxc container
+pct set 1031 -mp0 /mnt/data/servarr,mp=/mnt/mediaShare
+
 
 
 # Use btrbk for snapshot and backup of snapshots
