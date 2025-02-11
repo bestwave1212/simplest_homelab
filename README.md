@@ -245,20 +245,11 @@ If power consumption allow it, it would be cool to have 2 nodes to have full red
 ### Low power 
 Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
 
-### Setup
-Init disk with GPT
+### Init storage
 ```bash
 #install btrfs tools
 apt install btrfs-progs
-mkfs.btrfs -L data /dev/sda
-#Check that you see /dev/sda as registered
-btrfs device scan
-```
-
-### Init storage
-```bash
 # Create a btrfs volume for mass storage
-which btrfs
 sudo mkfs.btrfs /dev/sda
 sudo mkdir /mnt/data
 sudo mount /dev/sda /mnt/data
