@@ -261,7 +261,8 @@ sudo btrfs subvolume list
 ```bash
 # Create subvolume to store snapshots
 btrfs subvolume create /mnt/data/backup
-btrfs subvolume create /mnt/data/backup/mordor
+btrfs subvolume create /mnt/data/backup/internal
+btrfs subvolume create /mnt/data/servarr
 # Use btrbk for snapshot and backup of snapshots
 sudo dnf install btrbk
 wget LinkToMyConfig
