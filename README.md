@@ -240,10 +240,20 @@ Use PiHole or AdGuardHome to have DNS sinkhole, DNS rewrite, and choose my own D
 ## Storage
 The goal is to have a storage on 1 big HDD (big capacity) + 1 SSD (low power). It must be fully reliable and low power. 
 ### Reliable
-The FileSystem must have protection against bitrod and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. The backup drive is exactly the same as the main one. BTRFS seems to be the right candidate for bitrod detection & easy restore. 
+The FileSystem must have protection against bitrod and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. The backup HDD is exactly the same as the main one. BTRFS seems to be the right candidate for bitrod detection & easy management. Backup is managed with proxmox backup server container. 
 If power consumption allow it, it would be cool to have 2 nodes to have full redundancy and high avaibility but this is not the priority.
 ### Low power 
 Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
+
+### Setup
+Init disk with GPT
+```bash
+#install btrfs tools
+apt install btrfs-progs
+mkfs.btrfs -L data /dev/sda
+#Check that you see /dev/sda as registered
+btrfs device scan
+```
 
 ### Init storage
 ```bash
@@ -254,7 +264,7 @@ sudo mkdir /mnt/data
 sudo mount /dev/sda /mnt/data
 sudo chown bestwave:bestwave /mnt/data
 sudo btrfs subvolume list
-```
+
 
 ### Init backup
 ```bash
