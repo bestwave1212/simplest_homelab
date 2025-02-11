@@ -263,6 +263,10 @@ sudo btrfs subvolume list
 btrfs subvolume create /mnt/data/backup
 btrfs subvolume create /mnt/data/backup/internal
 btrfs subvolume create /mnt/data/servarr
+btrfs subvolume create /mnt/data/servarr/media
+btrfs subvolume create /mnt/data/servarr/media/movies
+btrfs subvolume create /mnt/data/servarr/media/tv
+btrfs subvolume create /mnt/data/servarr/torrent
 # Use btrbk for snapshot and backup of snapshots
 sudo dnf install btrbk
 wget LinkToMyConfig
