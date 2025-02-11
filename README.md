@@ -267,6 +267,13 @@ btrfs subvolume create /mnt/data/servarr/media
 btrfs subvolume create /mnt/data/servarr/media/movies
 btrfs subvolume create /mnt/data/servarr/media/tv
 btrfs subvolume create /mnt/data/servarr/torrent
+umount /dev/sda
+#Copy UUID
+blkid /dev/sda
+#Automount at boot
+nano /etc/fstab
+
+
 # Use btrbk for snapshot and backup of snapshots
 sudo dnf install btrbk
 wget LinkToMyConfig
