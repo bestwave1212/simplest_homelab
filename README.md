@@ -262,7 +262,17 @@ smartctl -t short /dev/nvme0
 # More than 1 minutes for smart short test
 sleep 2m
 #SMART status (disk health check)
+echo
+echo '---------------'
+echo 'Results for HDD'
+echo '---------------'
+echo
 smartctl -H /dev/sda
+echo
+echo '---------------'
+echo 'Results for SSD'
+echo '---------------'
+echo
 smartctl -H /dev/nvme0
 # user / free space
 dn -f
