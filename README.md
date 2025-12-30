@@ -321,6 +321,14 @@ volume /
   subvolume mnt/data/backup/internal
 ```
 
+### Restore data from btrfs 
+```bash
+# Avoid having the same name when restoring the subvolume
+mv SubVol SubVol_corrupted
+# Restore from snapshot
+btrfs subvolume snapshot /path/of/snapshot SubVol
+```
+
 ## APPs
 ### Backup
 That will be used to back up my other machines
