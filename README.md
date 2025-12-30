@@ -234,13 +234,14 @@ Use mainly the ISP router for most things but I want access remotely with a VPN,
 ### Access with VPN
 Use tailscale or wireguard
 ### Access with domain name
+Use cloudflare tunnel
 ### Internal DNS
 Use PiHole or AdGuardHome to have DNS sinkhole, DNS rewrite, and choose my own DNS (which?) for better privacy
 
 ## Storage
 The goal is to have a storage on 1 big HDD (big capacity) + 1 SSD (low power). It must be fully reliable and low power. 
 ### Reliable
-The FileSystem must have protection against file corruption and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. The backup HDD is exactly the same as the main one. BTRFS seems to be the right candidate for bitrod detection & easy management. Backup is managed with proxmox backup server container. 
+The FileSystem must have protection against file corruption and must be easily backup/restored. All data is backup on another machine that will be shutdown most of the time for low power consumption. The backup HDD is exactly the same as the main one. BTRFS seems to be the right candidate for bitrod detection & easy management. Backup is managed with btrbk for files and proxmox backup server for CT/VM.
 If power consumption allow it, it would be cool to have 2 nodes to have full redundancy and high avaibility but this is not the priority.
 ### Low power 
 Spinoff or shutdown the HDD if not used. For this reason, only archive/massive data such as files/media will be on HDD
