@@ -284,13 +284,15 @@ dn -f
 ### Init backup
 ```bash
 # Create subvolume to store snapshots
+btrfs subvolume create /mnt/data/@snapshots
 btrfs subvolume create /mnt/data/backup
 btrfs subvolume create /mnt/data/backup/internal
 btrfs subvolume create /mnt/data/servarr
 btrfs subvolume create /mnt/data/servarr/media
 btrfs subvolume create /mnt/data/servarr/media/movies
 btrfs subvolume create /mnt/data/servarr/media/tv
-btrfs subvolume create /mnt/data/servarr/torrent
+#btrfs subvolume create /mnt/data/servarr/torrent
+
 umount /dev/sda
 #Copy UUID
 blkid /dev/sda
@@ -309,7 +311,7 @@ wget LinkToMyConfig
 
 ```bash
 # TA 30/12/2025 Modified to fit my needs : 
-snapshot_dir               mnt/data/backup/internal/@snapshots
+snapshot_dir               mnt/data/@snapshots
 snapshot_create            onchange
 
 snapshot_preserve          8h 7d 0w 1m 1y
@@ -319,6 +321,10 @@ target_preserve_min        latest
 
 volume /
   subvolume mnt/data/backup/internal
+  subvolume mnt/data/immich
+  subvolume mnt/data/cloud
+  subvolume mnt/data/servarr/media/movies
+  subvolume mnt/data/servarr/media/tv
 ```
 
 ### Restore data from btrfs 
