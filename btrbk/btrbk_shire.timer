@@ -2,8 +2,8 @@
 Description=btrbk snapshot
 
 [Timer]
-OnCalendar=daily
-AccuracySec=10min
+OnCalendar=*-*-* 01:00:00
+AccuracySec=1min
 Persistent=true
 
 [Install]
