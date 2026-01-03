@@ -19,7 +19,7 @@ echo '------------------------'
 echo
 
 # Push btrbk backups from shire to gondor
-btrbk dryrun -c /etc/btrbk/btrbk_gondor.conf
+btrbk run -c /etc/btrbk/btrbk_gondor.conf
 
 #all bash lines that update the bakcup for the remote backup server are in command_gondor.sh
 ssh root@$HOST 'bash -s' < /home/bestwave/simplest_homelab/btrbk/command_gondor.sh
