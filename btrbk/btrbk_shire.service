@@ -1,0 +1,7 @@
+[Unit]
+Description=btrbk internal snapshot
+Documentation=man:btrbk(1)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/btrbk dryrun -c /etc/btrbk/btrbk_shire.conf
