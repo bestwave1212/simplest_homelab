@@ -1,0 +1,9 @@
+[Unit]
+Description=btrbk push snapshot to mordor
+Documentation=man:btrbk(1)
+Wants=btrbk_shire.service
+After=btrbk_shire.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/bestwave/simplest_homelab/btrbk/backup_mordor.sh

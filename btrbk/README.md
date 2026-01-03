@@ -8,12 +8,12 @@ First, you need to have btrfs installed and subvolumes mounted on shire and remo
 ```bash 
 # Install btrbk
 sudo apt update
-sudo apt install btrbk
+sudo apt install btrbk wakeonlan
 ```
 ```bash 
 # Configure shire for remote connection
-sudo ssh-keygen -t rsa -b 4096 -f /etc/btrbk/ssh/id_rsa -C thomas.arcier@proton.me -N ""
-sudo ssh-copy-id -i /etc/btrbk/ssh/id_rsa root@192.168.1.6
+sudo ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa -C thomas.arcier@proton.me -N ""
+sudo ssh-copy-id -i /root/.ssh/id_rsa root@192.168.1.6
 ssh root@192.168.1.6
 # While you are connected, Configure gondor for remote connection
 nano /etc/ssh/sshd_config 
