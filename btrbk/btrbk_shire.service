@@ -4,4 +4,4 @@ Documentation=man:btrbk(1)
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/btrbk dryrun -c /etc/btrbk/btrbk_shire.conf
+ExecStart=/usr/bin/btrbk run -c /etc/btrbk/btrbk_shire.conf
