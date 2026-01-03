@@ -27,7 +27,9 @@ exit #all done, back to shire
 git clone https://github.com/bestwave1212/simplest_homelab.git
 cd simplest_homelab
 cd btrbk
+# Dry run, copy local files to system files
 sudo ./btrbk_update.sh
 # Does it seems to work ? Try to drink more water
-sudo btrbk dryrun -c ./btrbk_mordor.conf 
+sudo ./btrbk_update.sh --install
+systemctl status btrbk_shire
 ```
