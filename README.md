@@ -1,4 +1,24 @@
-# lebon
+# Middle earth
+Yes, the theme is middle earth and all servers are named after a special place of this land.
+Shire is a fabulous worker and is always up. This is the principal component of the infra.
+Gondor is the last shield that protects the realm of men. It is the backup server.
+Mordor is where most of the problems comes from. It is my pc.
+
+# Shire
+## Routines 
+### Backup
+Every day at 1am, take a snapshot of files and backups of Shire.
+Every monday at 1am, after Shire's snapshot, push all snapshot to Gondor & stationMIR.
+
+### Maintenance
+After backup, do maintenance
+
+### Reporting ??
+
+
+
+
+# Legacy - lebon
 LeBon is the baremetal hypervisor which hosts all the other services. This host setup must be as simple as possible because backing up the host is not so simple. Instead, create containers to create services or anything.
 
 

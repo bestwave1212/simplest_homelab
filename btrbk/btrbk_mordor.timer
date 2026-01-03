@@ -1,0 +1,12 @@
+[Unit]
+Description=btrbk push snapshot to mordor
+Wants=btrbk_shire.service
+After=btrbk_shire.service
+
+[Timer]
+OnCalendar=*-*-* 01:00:00
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
