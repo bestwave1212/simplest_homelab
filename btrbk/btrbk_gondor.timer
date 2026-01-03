@@ -1,5 +1,5 @@
 [Unit]
-Description=btrbk push snapshot to mordor
+Description=btrbk push snapshot to gondor
 Wants=btrbk_shire.service
 After=btrbk_shire.service
 
