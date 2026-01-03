@@ -2,7 +2,7 @@
 Yes, the theme is middle earth and all servers are named after a special place of this land.
 Shire is a fabulous worker and is always up. This is the principal component of the infra.
 Gondor is the last shield that protects the realm of men. It is the backup server.
-Mordor is where most of the problems comes from. It is my pc.
+Gondor is where most of the problems comes from. It is my pc.
 
 # Shire
 ## Routines 

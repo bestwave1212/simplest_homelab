@@ -14,18 +14,18 @@ start=$(date +%s)
 wakeonlan $MAC
 until ping -c1 $HOST >/dev/null 2>&1; do :; done
 echo '------------------------'
-echo 'mordor is up and running'
+echo 'gondor is up and running'
 echo '------------------------'
 echo
 
-# Push btrbk backups from shire to mordor
-btrbk dryrun -c /etc/btrbk/btrbk_mordor.conf
+# Push btrbk backups from shire to gondor
+btrbk dryrun -c /etc/btrbk/btrbk_gondor.conf
 
-#all bash lines that update the bakcup for the remote backup server are in backup_command.sh
-ssh root@$HOST 'bash -s' < /home/bestwave/simplest_homelab/btrbk/command_mordor.sh
+#all bash lines that update the bakcup for the remote backup server are in command_gondor.sh
+ssh root@$HOST 'bash -s' < /home/bestwave/simplest_homelab/btrbk/command_gondor.sh
 #all done, sleep well backup server
 echo '-------------------------'
-echo 'all done, shutdown mordor'
+echo 'all done, shutdown gondor'
 echo '-------------------------'
 echo
 ssh root@$HOST 'shutdown; exit'
