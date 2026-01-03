@@ -10,8 +10,10 @@ Mordor is where most of the problems comes from. It is my pc.
 Every day at 1am, take a snapshot of files and backups of Shire.
 Every monday at 1am, after Shire's snapshot, push all snapshot to Gondor & stationMIR.
 
+Backup are managed by btrbk to leverage the use of btrfs. Details can be found in btrbk directory.
+
 ### Maintenance
-After backup, do maintenance
+After backup, do maintenance. Check that data is not corrupted.
 
 ### Reporting ??
 
