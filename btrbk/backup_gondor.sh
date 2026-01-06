@@ -12,7 +12,13 @@ start=$(date +%s)
 #Back up all of lebon & labrute CTs & VMs using sync job on internal backup on lebon
 #First power up lepaysan using wakeonlan
 wakeonlan $MAC
-until ping -c1 $HOST >/dev/null 2>&1; do :; done
+
+# Wait max 3 minutes (180 seconds) for host to come up
+timeout 180 bash -c "until ping -c1 $HOST >/dev/null 2>&1; do sleep 1; done" || {
+	echo "ERROR: Host $HOST did not come up within 3 minutes" >&2
+	exit 3
+}
+
 echo '------------------------'
 echo 'gondor is up and running'
 echo '------------------------'
