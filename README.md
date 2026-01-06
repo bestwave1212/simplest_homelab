@@ -5,6 +5,19 @@ Gondor is the last shield that protects the realm of men. It is the backup serve
 Gondor is where most of the problems comes from. It is my pc.
 
 # Shire
+## Init
+```bash
+apt-get update
+apt-get dist-upgrade -y
+apt-get install sudo
+adduser bestwave
+#Then type your password
+usermod -aG sudo bestwave
+reboot
+#install tailscale
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up --advertise-routes 192.168.1.0/24 --advertise-exit-node
+```
 ## Routines 
 ### Backup
 Every day at 1am, take a snapshot of files and backups of Shire.
