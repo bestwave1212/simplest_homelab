@@ -1,0 +1,285 @@
+volumes:
+  lidify:
+  kima:
+  radarr_config:
+  sonarr_config:
+  prowlarr_config:
+  qbittorrent_config:
+  jellyseerr_config:
+  bazarr_config:
+  jellyfin_config:
+  sabnzbd_config:
+  lidarr_config:
+  readarr_config:
+  calibre_config:
+  lazylibrarian_config:
+  audiobookshelf_config:
+  audiobookshelf_metadata:
+  slskd:
+  seerr:
+
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - radarr_config:/config
+      - /mnt/data/servarr:/mediaShare
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - sonarr_config:/config
+      - /mnt/data/servarr:/mediaShare
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - prowlarr_config:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+#  qbittorrent:
+#    image: lscr.io/linuxserver/qbittorrent:latest
+##    image: lscr.io/linuxserver/qbittorrent:4.6.0
+#    container_name: qbittorrent
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=Europe/Paris
+#      - WEBUI_PORT=8080
+#    volumes:
+#      - qbittorrent_config:/config
+#      - /mnt/mediaShare/torrents:/mediaShare/torrents
+#    ports:
+#      - 8080:8080
+#      - 6881:6881
+#      - 6881:6881/udp
+#    restart: unless-stopped
+
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - DOCKER_MODS=linuxserver/mods:universal-calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
+    volumes:
+      - lazylibrarian_config:/config
+      - /mnt/data/servarr:/mediaShare
+#      - /path/to/data/:/books #optional
+    ports:
+      - 5299:5299
+    restart: unless-stopped
+
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Paris
+      - PORT=5055 #optional
+    ports:
+      - 5055:5055
+    volumes:
+      - seerr:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - bazarr_config:/config
+      - /mnt/data/servarr/media:/mediaShare/media
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
+  jellyfin:
+    image: linuxserver/jellyfin:latest
+#    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+#    user: 1000:1000
+#    group_add:
+#            - 104 #render for /dev/dri permissions
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - JELLYFIN_PublishedServerUrl=192.168.1.5 #optional
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
+#      - JELLYFIN_DATA_DIR=/config/data #Uncomment for Jellyfin Images 
+#      - JELLYFIN_CONFIG_DIR=/config #Uncomment for Jellyfin Images#  
+#      - JELLYFIN_LOG_DIR=/config/log #Uncomment for Jellyfin Images#
+#      - JELLYFIN_CACHE_DIR=/config/cache #Uncomment for Jellyfin Images
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+#    network_mode: 'host'
+    volumes:
+      - jellyfin_config:/config
+      - /dev/shm/jellyfin:/cache
+      - /mnt/data/servarr/media:/mediaShare/media
+#      - type: bind
+#        source: /mnt/mediaShare/media
+#        target: /mediaShare/media
+#        read_only: true
+    restart: 'unless-stopped'
+    devices:
+#      - /dev/dri:/dev/dri
+#      - /dev/dri/card1
+      - /dev/dri/renderD128:/dev/dri/renderD128
+  
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - sabnzbd_config:/config
+      - /mnt/data/servarr/usenet/incomplete:/mediaShare/usenet/incomplete #optional
+      - /mnt/data/servarr/usenet:/mediaShare/usenet #optional
+    ports:
+      - 8083:8080
+    restart: unless-stopped
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:nightly
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - KIMA_CALLBACK_URL=http://192.168.1.5:3030
+    volumes:
+      - lidarr_config:/config
+      - /mnt/data/servarr:/mediaShare
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+
+  lidify:
+    image: thewicklowwolf/lidify:latest
+    container_name: lidify
+    volumes:
+      - lidify:/lidify/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    environment:
+      - last_fm_api_key=c66d31621d859c9488df720aea26e8ca
+      - last_fm_api_secret=ecea605398b5af6aa4a2457eec6d96be
+      - mode=LastFM
+
+#  readarr:
+#    image: linuxserver/readarr:0.4.19-nightly
+#    container_name: readarr
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=Europe/Paris
+#    volumes:
+#      - readarr_config:/config
+#      - /mnt/mediaShare:/mediaShare
+#    ports:
+#      - 8787:8787
+#    restart: unless-stopped
+
+  calibre:
+    image: lscr.io/linuxserver/calibre:latest
+    container_name: calibre
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - PASSWORD=Jgvvzf97!ca@
+#      - CLI_ARGS= 
+    volumes:
+      - calibre_config:/config
+      - /mnt/data/servarr/media/books:/books
+    ports:
+      - 8082:8080
+      - 8181:8181
+      - 8081:8081
+    restart: unless-stopped
+
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes:
+      - /mnt/data/servarr/media/audiobooks:/audiobooks
+      - /mnt/data/servarr/media/audiobooks:/podcasts
+      - audiobookshelf_config:/config
+      - audiobookshelf_metadata:/metadata
+    environment:
+      - TZ=Europe/Paris
+#  flaresolverr:
+#    # DockerHub mirror flaresolverr/flaresolverr:latest
+#    image: ghcr.io/flaresolverr/flaresolverr:latest
+#    container_name: flaresolverr
+#    environment:
+#      - LOG_LEVEL=${LOG_LEVEL:-info}
+#      - LOG_HTML=${LOG_HTML:-false}
+#      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+#      - TZ=Europe/Paris
+#    ports:
+#      - 8191:8191
+#    restart: unless-stopped
+
+  slskd:
+    image: slskd/slskd:latest
+    container_name: slskd
+    ports:
+      - "5030:5030"
+      - "5031:5031"
+      - "50300:50300"
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_SLSK_USERNAME=bestwave
+      - SLSKD_SLSK_PASSWORD=Jgvvzf97!so@
+    volumes:
+      - slskd:/app
+      - /mnt/data/servarr/:/mediaShare/
+    user: 1000:1000
+    restart: always

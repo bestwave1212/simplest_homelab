@@ -1,0 +1,17 @@
+mysql:
+  url: mysql://root:MySQLRootPassword@mariadb:3306/sync_in
+auth:
+  encryptionKey: changeEncryptionKeyWithStrongKey
+  token:
+    access:
+      secret: changeAccessWithStrongSecret
+    refresh:
+      secret: changeRefreshWithStrongSecret
+applications:
+  files:
+    dataPath: /app/data
+    collabora:
+      enabled: false
+    onlyoffice:
+      enabled: false
+      secret: onlyOfficeSecret
