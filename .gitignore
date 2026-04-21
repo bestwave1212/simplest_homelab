@@ -1,0 +1,7 @@
+# Synology backup credentials
+synology_backup/.smbcredentials
+
+# System files
+*.swp
+*.swo
+*~

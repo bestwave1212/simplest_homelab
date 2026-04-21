@@ -1,0 +1,11 @@
+[Unit]
+Description=Push backup snapshots to Synology NAS (stationMir)
+Requires=btrbk_stationMir.service
+
+[Timer]
+OnCalendar=*-*-* 01:00:00
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

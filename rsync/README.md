@@ -1,14 +1,32 @@
-# RSYNC
-It manages backups between stationMIR and Shire. They are connected through VPN via tailscale.
-## Initialisation
-```bash
-sudo apt install rsync
-sudo useradd rsync -m -G users
-sudo passwd rsync
-su - rsync
-git clone https://github.com/BestWave/simplest_homelab.git
-cd simplest_homelab/rsync
-# Make sure you already have ssh key
-cat /root/.ssh/id_rsa
+# Backup Server
 
+rsync daemon server for Synology NAS backup via Tailscale.
+
+## Setup
+
+```bash
+cd rsync
+docker compose up -d
 ```
+
+## Synology Hyper Backup
+
+1. Open **Hyper Backup** → **+** → **Data backup task** → **rsync**
+2. Fill in:
+   - **Server:** `100.70.204.68`
+   - **Port:** `873`
+   - **Username:** `bestwave`
+   - **Password:** `Jgvvzf97`
+   - **Backup module:** `backup`
+
+## Credentials
+
+- **User:** `bestwave`
+- **Password:** `Jgvvzf97`
+- **rsync module:** `backup`
+- **Data path:** `/mnt/data/backup/stationmir`
+
+## Network
+
+- **Tailscale IP:** `100.70.204.68`
+- Requires native Tailscale on Synology with subnet route enabled

@@ -1,5 +1,5 @@
 mysql:
-  url: mysql://root:MySQLRootPassword@mariadb:3306/sync_in
+  url: mysql://sync_in:MySQLRootPassword@mariadb:3306/sync_in
 auth:
   encryptionKey: changeEncryptionKeyWithStrongKey
   token:
@@ -11,7 +11,7 @@ applications:
   files:
     dataPath: /app/data
     collabora:
-      enabled: false
+      enabled: true
     onlyoffice:
       enabled: false
       secret: onlyOfficeSecret

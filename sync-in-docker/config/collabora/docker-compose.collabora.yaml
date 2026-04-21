@@ -16,6 +16,8 @@ services:
       - SYS_ADMIN
       - FOWNER
       - CHOWN
+    tmpfs:
+      - /tmp
     logging:
       driver: json-file
       options:

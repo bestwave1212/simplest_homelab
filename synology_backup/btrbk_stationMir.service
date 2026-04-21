@@ -1,0 +1,9 @@
+[Unit]
+Description=Push backup snapshots to Synology NAS (stationMir)
+Documentation=man:btrbk(1)
+Wants=btrbk_gondor.service
+After=btrbk_gondor.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/bestwave/simplest_homelab/synology_backup/backup_stationMir.sh
