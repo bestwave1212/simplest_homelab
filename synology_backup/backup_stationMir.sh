@@ -12,7 +12,7 @@ SMB_CREDENTIALS="$SCRIPT_DIR/.smbcredentials"
 MOUNT_POINT="/mnt/synology_backup"
 SNAPSHOT_DIR="$MOUNT_POINT/snapshots"
 TIMESTAMP=$(date +%Y%m%dT%H%M)
-RETENTION_WEEKS=52
+RETENTION_WEEKS=1
 
 # Subvolumes to backup
 SUBVOLUMES="

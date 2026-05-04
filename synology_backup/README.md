@@ -4,13 +4,9 @@ Backup shire data to Synology NAS via SMB using rsync with hardlinked incrementa
 
 ## Overview
 
-- **Target**: `\\100.103.156.58\backupShire`
-- **Mount**: `/mnt/synology_backup`
-- **Method**: rsync + `--link-dest` for incremental hardlinked backups
-- **Schedule**: Runs after `btrbk_gondor.service` completes
-- **Timer**: Daily at 01:00 (weekly via dependency on gondor)
-- **Retention**: 52 weekly snapshots (~1 year)
-
+- **Target**: `\\100.103.156.58\backupShire` - **Mount**: `/mnt/synology_backup` - **Method**: rsync + `--link-dest` for 
+incremental hardlinked backups - **Schedule**: Runs after `btrbk_gondor.service` completes - **Timer**: Daily at 01:00 
+(weekly via dependency on gondor) - **Retention**: Changed to 1 snapshot because synology doesnt have dedup (from 52 weekly snapshots (~1 year))
 ## Data Backed Up
 
 - `mnt/data/cloud`
