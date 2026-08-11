@@ -1,10 +1,12 @@
 # Middle earth
 Yes, the theme is middle earth and all servers are named after a special place of this land.
-Shire is a fabulous worker and is always up. This is the principal component of the infra.
+Shire (formerly LeBon) is the Proxmox baremetal host, always up and running all Docker services.
 Gondor is the last shield that protects the realm of men. It is the backup server.
 Gondor is where most of the problems comes from. It is my pc.
 
-# Shire
+# Shire (formerly LeBon)
+Shire is a Proxmox baremetal host. It hosts all Docker services and manages the storage.
+
 ## Init
 ```bash
 apt-get update
@@ -30,18 +32,12 @@ After backup, do maintenance. Check that data is not corrupted.
 
 ### Reporting ??
 
-
-
-
-# Legacy - lebon
-LeBon is the baremetal hypervisor which hosts all the other services. This host setup must be as simple as possible because backing up the host is not so simple. Instead, create containers to create services or anything.
-
-
-Info for reinstalling proxmox on lebon : 
+## Proxmox reinstall notes
+Info for reinstalling proxmox on Shire if needed:
 - disconnect ethernet on lan1 and connect lan0 to lepaysan (backup)
 - set static ip 192.168.12.2, this will create bridge vmbr0 which correspond to LAN 
 - with a third pc, set static ip like 192.168.12.5 and go to bakcup gui and copy its fingerprint (debug: might want to disable old VPN like tailscale, couldn't ping with it)
-- connect to lebon gui and add a storage in "Datacenter", button "Add", then "proxmox backup server"
+- connect to shire gui and add a storage in "Datacenter", button "Add", then "proxmox backup server"
 
 
 #  Install i217V intel NIC (not working)
@@ -99,14 +95,14 @@ reboot
 - add non subscription repo, update, upgrade, reboot
 
 # Backup
-When backup is restored, add PBS server to LeBon storage and create a scheduled backup
+When backup is restored, add PBS server to Shire storage and create a scheduled backup
 
 # TrueNAS
 One bug I found was when mounting a NFS share of a dataset with a child dataset. The Child dataset permissions was set to root:root (root of TrueNAS and not of proxmox so very limited access unless you give 777 permissions). A workaround I found on TrueNAS forum was to create a share for the child, although it was already shared by the "parent" dataset. 
 To do that in TrueNAS, go to SHARES, then UNIX (NFS) Shares, then ADD. Select the child dataset to share and share to the whole network (the parent share is only shared to one host/ip) to avoid conflict. Also in Advanced options, gite the same Maproot user & Maproot Group as the parent dataset.
 
 # TrueNAS - backup
-This is a separate PC to backup everything outside of lebon, used a lot when reinstalling proxmox host. 
+This is a separate PC to backup everything outside of Shire, used a lot when reinstalling the Proxmox host. 
 Steps to reproduce to use backup
 Install TrueNAS 
 In router, use dhcp static lease to asign ip addresse 192.168.12.21 to mac address : 2c:60:0c:0d:ac:44

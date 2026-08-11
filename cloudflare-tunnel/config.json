@@ -1,0 +1,8 @@
+{
+  "ingress": [
+    { "hostname": "jellyfin.ltdm.xyz", "service": "http_service:8096" },
+    { "hostname": "adguard.ltdm.xyz", "service": "http_service:3000" },
+    { "hostname": "nginx.ltdm.xyz", "service": "http_service:80" },
+    { "service": "http_status:404" }
+  ]
+}

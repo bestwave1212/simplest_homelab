@@ -1,6 +1,6 @@
-#!/bin/sh
-# Backup shire data to Synology NAS via SMB
-# Uses rsync with --link-dest for hardlinked incremental backups
+#!/bin/bash
+# Backup shire data to Synology NAS via SMB using BorgBackup 2
+# Uses Borg native deduplication and compression
 
 set -e
 
@@ -10,77 +10,85 @@ SYNOLOGY_SHARE="backupShire"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SMB_CREDENTIALS="$SCRIPT_DIR/.smbcredentials"
 MOUNT_POINT="/mnt/synology_backup"
-SNAPSHOT_DIR="$MOUNT_POINT/snapshots"
-TIMESTAMP=$(date +%Y%m%dT%H%M)
-RETENTION_WEEKS=1
+BORG_REPO="$MOUNT_POINT/borg_repo"
+export BORG_REPO
+BORG_PASSPHRASE="$(cat "$SCRIPT_DIR/.borg_passphrase" 2>/dev/null || echo "")"
+export BORG_PASSPHRASE
+export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
+
+# Retention policy: keep 52 weekly archives (~1 year)
+RETENTION_WEEKS=52
 
 # Subvolumes to backup
-SUBVOLUMES="
-mnt/data/cloud
-mnt/data/immich
-var/lib/docker/volumes
-"
+SUBVOLUMES=(
+    "/mnt/data/cloud"
+    "/mnt/data/immich"
+    "/var/lib/docker/volumes"
+)
 
 echo "========================================"
-echo "Starting backup to Synology: $SYNOLOGY_HOST"
-echo "Timestamp: $TIMESTAMP"
+echo "Starting BorgBackup 2 to Synology: $SYNOLOGY_HOST"
+echo "Repository: $BORG_REPO"
 echo "========================================"
+
+# Check borg2 is available
+if ! command -v borg2 &> /dev/null; then
+    echo "ERROR: borg2 not found. Please install borgbackup2 manually:"
+    echo "  sudo apt-get install borgbackup2"
+    exit 1
+fi
 
 # Mount SMB share if not already mounted
 if ! mountpoint -q "$MOUNT_POINT"; then
     echo "Mounting SMB share..."
+    mkdir -p "$MOUNT_POINT"
     mount -t cifs //"$SYNOLOGY_HOST/$SYNOLOGY_SHARE" "$MOUNT_POINT" \
         -o credentials="$SMB_CREDENTIALS",uid=0,gid=0,file_mode=0600,dir_mode=0700
 fi
 
-# Create snapshot directory
-mkdir -p "$SNAPSHOT_DIR"
+# Initialize borg repo if it doesn't exist
+if [ ! -d "$BORG_REPO" ]; then
+    echo "Initializing Borg repository..."
+    borg2 repo-create -e repokey-aes-ocb
+fi
 
-# Backup each subvolume
-for subvolume in $SUBVOLUMES; do
-    SRC_PATH="/$subvolume"
-    DEST_NAME=$(echo "$subvolume" | tr '/' '-')
-    DEST_PATH="$SNAPSHOT_DIR/${DEST_NAME}.${TIMESTAMP}"
-    DEST_DIR="$SNAPSHOT_DIR"
+# Create archive for each subvolume
+TIMESTAMP=$(date +%Y%m%dT%H%M)
+echo "Archive timestamp: $TIMESTAMP"
 
-    # Find previous snapshot for this specific subvolume
-    PREVIOUS_SNAPSHOT=$(ls -td "$SNAPSHOT_DIR/${DEST_NAME}".* 2>/dev/null | head -1)
-
-    # Skip if source doesn't exist
-    if [ ! -e "$SRC_PATH" ]; then
-        echo "WARNING: Source $SRC_PATH does not exist, skipping..."
+for subvolume in "${SUBVOLUMES[@]}"; do
+    if [ ! -e "$subvolume" ]; then
+        echo "WARNING: $subvolume does not exist, skipping..."
         continue
     fi
 
+    ARCHIVE_NAME=$(echo "$subvolume" | tr '/' '-' | sed 's/^-//')
     echo "----------------------------------------"
-    echo "Backing up: $SRC_PATH"
-    echo "Destination: $DEST_PATH"
-    echo "Previous: $PREVIOUS_SNAPSHOT"
+    echo "Backing up: $subvolume"
+    echo "Archive: $ARCHIVE_NAME-$TIMESTAMP"
     echo "----------------------------------------"
 
-    # Create parent directory
-    mkdir -p "$DEST_DIR"
-
-    # Run rsync with link-dest for hardlink incremental backup
-    if [ -n "$PREVIOUS_SNAPSHOT" ] && [ -d "$PREVIOUS_SNAPSHOT" ]; then
-        rsync -aH --delete --link-dest="$PREVIOUS_SNAPSHOT" "$SRC_PATH/" "$DEST_PATH/"
-    else
-        echo "No previous snapshot found, doing full backup..."
-        rsync -aH --delete "$SRC_PATH/" "$DEST_PATH/"
-    fi
-
-    echo "Completed: $SRC_PATH"
+    borg2 create \
+        --stats \
+        -C zstd,3 \
+        -r "$BORG_REPO" \
+        "$ARCHIVE_NAME-$TIMESTAMP" \
+        "$subvolume"
 done
 
-# Cleanup old snapshots (keep 52 weeks)
+# Prune old archives based on retention policy
 echo "----------------------------------------"
-echo "Cleaning up old snapshots (keeping $RETENTION_WEEKS weeks)..."
-find "$SNAPSHOT_DIR" -maxdepth 1 -type d -name "*.2*" | \
-    sort -r | tail -n +$((RETENTION_WEEKS + 1)) | xargs -r rm -rf
+echo "Pruning old archives (keeping $RETENTION_WEEKS weekly)..."
+for subvolume in "${SUBVOLUMES[@]}"; do
+    ARCHIVE_NAME=$(echo "$subvolume" | tr '/' '-' | sed 's/^-//')
+    borg2 prune \
+        --list \
+        --keep-last "$RETENTION_WEEKS" \
+        -r "$BORG_REPO" \
+        --prefix "$ARCHIVE_NAME-"
+done
 
 echo "----------------------------------------"
 echo "Backup completed: $TIMESTAMP"
 echo "----------------------------------------"
-
-end_ts=$(date +%s)
 echo "Done."

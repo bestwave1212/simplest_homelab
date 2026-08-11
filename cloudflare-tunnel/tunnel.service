@@ -1,0 +1,14 @@
+[Unit]
+Description=Cloudflare Tunnel
+After=network.target
+
+[Service]
+Type=simple
+User=bestwave
+Restart=always
+RestartSec=5
+ExecStart=/usr/local/bin/docker compose up -d cloudflare-tunnel
+WorkingDirectory=/home/bestwave/simplest_homelab/cloudflare-tunnel
+
+[Install]
+WantedBy=multi-user.target

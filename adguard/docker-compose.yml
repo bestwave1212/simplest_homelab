@@ -1,0 +1,26 @@
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    container_name: adguard
+    restart: unless-stopped
+    volumes:
+      - adguard_work:/opt/adguardhome/work
+      - adguard_conf:/opt/adguardhome/conf
+    networks:
+      adguard_net:
+        ipv4_address: 192.168.1.10
+
+networks:
+  adguard_net:
+    driver: macvlan
+    driver_opts:
+      parent: vmbr0
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+          ip_range: 192.168.1.10/32
+
+volumes:
+  adguard_work:
+  adguard_conf:

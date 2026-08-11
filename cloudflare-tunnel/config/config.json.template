@@ -1,0 +1,148 @@
+{
+  "ingress": [
+    {
+      "service": "http://jellyfin.ltdm.xyz:8096",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://openwebui.ltdm.xyz:3000",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://arcane.ltdm.xyz:3552",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://sync.ltdm.xyz:8081",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://actualbudget.ltdm.xyz:5006",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://copyparty.ltdm.xyz:3923",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://calibre.ltdm.xyz:8082",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://bazarr.ltdm.xyz:6767",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://sabnzbd.ltdm.xyz:8080",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://lidarr.ltdm.xyz:8686",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://lidify.ltdm.xyz:5000",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://seerr.ltdm.xyz:5055",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://sonarr.ltdm.xyz:8989",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://radarr.ltdm.xyz:7878",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://prowlarr.ltdm.xyz:9696",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://lazylibrarian.ltdm.xyz:5299",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://audiobookshelf.ltdm.xyz:13378",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    },
+    {
+      "service": "http://slskd.ltdm.xyz:5030",
+      "headers": {
+        "CF-Connecting-IP": true,
+        "CF-RAY": true,
+        "Host": true
+      }
+    }
+  ]
+}

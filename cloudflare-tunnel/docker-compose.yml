@@ -1,0 +1,13 @@
+services:
+  cloudflare-tunnel:
+    image: zoeyvid/cloudflared:latest
+    container_name: cloudflare-tunnel
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./config.json:/app/config.json:ro
+      - /var/run/cloudflared:/var/run/cloudflared:ro
+    command:
+      - tunnel
+      - --url
+      - https://jellyfin.ltdm.xyz
