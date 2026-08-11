@@ -1,7 +1,33 @@
-# Synology backup credentials
-synology_backup/.smbcredentials
+# Secrets / credentials
+.env
+*.pem
+*.key
+*.p12
+*.pfx
+*.smbcredentials
+*.borg_passphrase
+authorized_keys
 
-# System files
+# Docker
+.docker/
+
+# OS / editor
+.DS_Store
+Thumbs.db
 *.swp
 *.swo
 *~
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Hermes agent home (contains tokens/secrets)
+.hermes/
