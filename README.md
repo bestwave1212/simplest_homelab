@@ -17,9 +17,7 @@ Yes, the theme is middle earth and all servers are named after a special place o
 | Nginx (reverse proxy) | http://192.168.1.5 | — | [nginx/](nginx/) |
 | Servarr stack | http://192.168.1.5 | *.ltdm.xyz | [servarr/](servarr/) |
 | AdGuard Home | http://192.168.1.5:3000 | adguard.ltdm.xyz | [adguard/](adguard/) |
-| Hermes WebUI | http://192.168.1.5 | hermes.ltdm.xyz | [hermes-webui/](hermes-webui/) |
 | Rsync | — | — | [rsync/](rsync/) |
-| Sync-in-Docker | — | — | [sync-in-docker/](sync-in-docker/) |
 | Synology Backup | — | — | [synology_backup/](synology_backup/) |
 
 ## Infrastructure

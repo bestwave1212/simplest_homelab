@@ -26,5 +26,5 @@ docker compose up -d
 ## Notes
 
 - Data lives in `/mnt/data/cloud/nextcloud` (part of the `cloud` btrfs subvolume, covered by btrbk backups).
-- Apache binds `0.0.0.0:11000`; the mastercontainer UI is on `8088` (8080 is used by sync-in).
+- Apache binds `0.0.0.0:11000`; the mastercontainer UI is on `8088`.
 - Caveat: compose cannot pass `--sig-proxy=false`. On `docker compose down` some AIO helper containers may stay in a stopping state; recover with `docker compose restart` or `docker restart <container>`.
