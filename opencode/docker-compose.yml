@@ -2,13 +2,17 @@ services:
   opencode:
     image: ghcr.io/anomalyco/opencode:latest
     container_name: opencode
+    user: "1000:1000"
     ports:
       - "4096:4096"
     volumes:
+      - /:/host
       - ./workspace:/workspace
     working_dir: /workspace
+    environment:
+      - HOME=/workspace
     env_file:
       - .env
-    entrypoint: ["/bin/sh", "-c", "printf '#!/bin/sh\nexit 0\n' > /usr/local/bin/xdg-open && chmod +x /usr/local/bin/xdg-open && exec opencode web --hostname 0.0.0.0 --port 4096"]
+    entrypoint: ["/bin/sh", "-c", "printf '#!/bin/sh\nexit 0\n' > /tmp/xdg-open && chmod +x /tmp/xdg-open && PATH=/tmp:$PATH exec opencode web --hostname 0.0.0.0 --port 4096"]
     stdin_open: true
     tty: true
