@@ -1,0 +1,11 @@
+[Unit]
+Description=Shire weekly health report
+
+[Timer]
+OnCalendar=Mon *-*-* 01:00:00
+Persistent=true
+AccuracySec=5min
+OnUnitActiveAfter=btrbk_gondor.service 2h
+
+[Install]
+WantedBy=timers.target

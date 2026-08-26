@@ -1,0 +1,10 @@
+[Unit]
+Description=Shire weekly health report
+After=btrbk_gondor.service
+Wants=btrbk_gondor.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/bestwave/shire-weekly.sh
+StandardOutput=journal
+StandardError=journal

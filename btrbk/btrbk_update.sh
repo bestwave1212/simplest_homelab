@@ -8,6 +8,8 @@ SERVICE_SRC="$SRC_DIR/btrbk_shire.service"
 TIMER_SRC="$SRC_DIR/btrbk_shire.timer"
 SERVICE_GONDOR_SRC="$SRC_DIR/btrbk_gondor.service"
 TIMER_GONDOR_SRC="$SRC_DIR/btrbk_gondor.timer"
+SERVICE_WEEKLY_SRC="$SRC_DIR/../shire-weekly/shire_weekly.service"
+TIMER_WEEKLY_SRC="$SRC_DIR/../shire-weekly/shire_weekly.timer"
 
 DEST_CONF="/etc/btrbk/btrbk_shire.conf"
 DEST_GONDOR_CONF="/etc/btrbk/btrbk_gondor.conf"
@@ -23,9 +25,9 @@ Pass --install to perform the actions (requires sudo/root).
 Actions performed with --install:
 - create /etc/btrbk if needed
 - copy the shire and gondor configs to /etc/btrbk
-- copy service and timer to $SYSTEMD_DIR (for both shire and gondor)
+- copy service and timer to $SYSTEMD_DIR (for both shire, gondor, and weekly)
 - reload systemd, enable and start the timer
-- attempt a btrbk dry-run if `which btrbk` is available
+- attempt a btrbk dry-run if which btrbk is available
 EOF
 }
 
@@ -37,7 +39,7 @@ elif [[ ${1-} == "--help" || ${1-} == "-h" ]]; then
 	exit 0
 fi
 
-for f in "$CONF_SRC" "$GONDOR_CONF_SRC" "$SERVICE_SRC" "$TIMER_SRC" "$SERVICE_GONDOR_SRC" "$TIMER_GONDOR_SRC"; do
+for f in "$CONF_SRC" "$GONDOR_CONF_SRC" "$SERVICE_SRC" "$TIMER_SRC" "$SERVICE_GONDOR_SRC" "$TIMER_GONDOR_SRC" "$SERVICE_WEEKLY_SRC" "$TIMER_WEEKLY_SRC"; do
 	if [[ ! -f "$f" ]]; then
 		echo "ERROR: required source file not found: $f" >&2
 		exit 2
@@ -53,7 +55,7 @@ run_cmd() {
 	fi
 }
 
-echo "Mode: $( $DRY_RUN && echo 'dry-run' || echo 'install' )"
+echo "Mode: $( $DRY_RUN && echo dry-run || echo install )"
 
 # Ensure target dir exists (do not create it)
 if [[ ! -d /etc/btrbk ]]; then
@@ -86,10 +88,17 @@ run_cmd sudo cp -v "$TIMER_GONDOR_SRC" "$SYSTEMD_DIR/"
 run_cmd sudo chown root:root "$SYSTEMD_DIR/$(basename "$SERVICE_GONDOR_SRC")" "$SYSTEMD_DIR/$(basename "$TIMER_GONDOR_SRC")"
 run_cmd sudo chmod 644 "$SYSTEMD_DIR/$(basename "$SERVICE_GONDOR_SRC")" "$SYSTEMD_DIR/$(basename "$TIMER_GONDOR_SRC")"
 
+# Install systemd unit files (weekly)
+run_cmd sudo cp -v "$SERVICE_WEEKLY_SRC" "$SYSTEMD_DIR/"
+run_cmd sudo cp -v "$TIMER_WEEKLY_SRC" "$SYSTEMD_DIR/"
+run_cmd sudo chown root:root "$SYSTEMD_DIR/$(basename "$SERVICE_WEEKLY_SRC")" "$SYSTEMD_DIR/$(basename "$TIMER_WEEKLY_SRC")"
+run_cmd sudo chmod 644 "$SYSTEMD_DIR/$(basename "$SERVICE_WEEKLY_SRC")" "$SYSTEMD_DIR/$(basename "$TIMER_WEEKLY_SRC")"
+
 # Reload systemd and enable/start timers
 run_cmd sudo systemctl daemon-reload
 run_cmd sudo systemctl enable --now btrbk_shire.timer
 run_cmd sudo systemctl enable --now btrbk_gondor.timer
+run_cmd sudo systemctl enable --now shire_weekly.timer
 
 # Start the services we installed (they run configured jobs)
 if command -v systemctl >/dev/null 2>&1; then
