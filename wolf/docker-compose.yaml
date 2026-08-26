@@ -1,0 +1,52 @@
+services:
+  wolf:
+    image: ghcr.io/games-on-whales/wolf:stable
+    container_name: wolf
+    environment:
+      - NVIDIA_DRIVER_VOLUME_NAME=nvidia-driver-vol
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+      - WOLF_EMBED_PULSE=false
+      - WOLF_RENDER_NODE=/dev/dri/renderD129
+    volumes:
+      - /etc/wolf/:/etc/wolf
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /dev/:/dev/:rw
+      - /run/udev:/run/udev:rw
+      - /tmp/sockets:/tmp/sockets:rw
+      - nvidia-driver-vol:/usr/nvidia:rw
+    devices:
+      - /dev/dri
+      - /dev/uinput
+      - /dev/uhid
+      - /dev/nvidia0
+      - /dev/nvidiactl
+      - /dev/nvidia-uvm
+      - /dev/nvidia-uvm-tools
+      - /dev/nvidia-caps/nvidia-cap1
+      - /dev/nvidia-caps/nvidia-cap2
+    device_cgroup_rules:
+      - 'c 13:* rmw'
+    network_mode: host
+    restart: unless-stopped
+
+  pulseaudio:
+    image: ghcr.io/games-on-whales/pulseaudio:master
+    container_name: WolfPulseAudio
+    volumes:
+      - /tmp/sockets:/tmp/pulse/:rw
+    network_mode: bridge
+    restart: unless-stopped
+
+  wolf-ui:
+    image: ghcr.io/games-on-whales/wolf-ui:main
+    container_name: Wolf-UI
+    entrypoint: ["wolf-ui", "-f", "-t", "--headless"]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    network_mode: host
+    restart: unless-stopped
+
+volumes:
+  nvidia-driver-vol:
+    external: true
