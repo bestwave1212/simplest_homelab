@@ -177,7 +177,7 @@ services:
       - /mnt/data/servarr/usenet/incomplete:/mediaShare/usenet/incomplete #optional
       - /mnt/data/servarr/usenet:/mediaShare/usenet #optional
     ports:
-      - 8083:8080
+      - 8083:8083
     restart: unless-stopped
 
   lidarr:

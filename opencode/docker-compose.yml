@@ -6,7 +6,6 @@ services:
     ports:
       - "4096:4096"
     volumes:
-      - /:/host
       - ./workspace:/workspace
     working_dir: /workspace
     environment:
